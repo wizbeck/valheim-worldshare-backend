@@ -3,7 +3,7 @@ class Api::V1::WorldsController < ApplicationController
   def index
     worlds = World.all
     comments = Comment.all
-    render json: worlds
+    render json: WorldSerializer.new(worlds)
   end
 
   def create
@@ -11,9 +11,8 @@ class Api::V1::WorldsController < ApplicationController
     if world.save
       render json: world, status: :accepted
     else
-      render json: {errors: world.errors.full_messages} status: :unprocessable_entity
+      render json: {error: world.errors.full_messages}, status: :unprocessable_entity
     end
-
   end
 
 
