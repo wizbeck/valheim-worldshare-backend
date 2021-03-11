@@ -9,7 +9,7 @@ class Api::V1::WorldsController < ApplicationController
   def create
     world = World.new(world_params)
     if world.save
-      render json: world, status: :accepted
+      render json: WorldSerializer.new(world), status: :accepted
     else
       render json: {error: world.errors.full_messages}, status: :unprocessable_entity
     end
