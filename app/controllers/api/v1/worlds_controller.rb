@@ -16,6 +16,17 @@ class Api::V1::WorldsController < ApplicationController
   end
 
 
+  def update
+    world = World.find_by(id: params[:id])
+    world.likes = params[:likes]
+    if world.save
+      render json: WorldSerializer.new(world)
+    else
+      render json: {error: world.errors.full_messages}, status: :unprocessable_entity
+    end
+  end
+
+
   private
 
   def world_params
