@@ -32,4 +32,6 @@ class Api::V1::WorldsController < ApplicationController
   def world_params
     params.require(:world).permit(:name, :seed, :description, :image_url, :creator)
   end
+
+
 end
