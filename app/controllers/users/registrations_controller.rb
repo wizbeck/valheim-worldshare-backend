@@ -39,11 +39,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  private
+
+  def respond_with(resource, _opts = {})
+    if resource.persisted?
+      render json: {
+        status: { code: 20, message: 'Signed up successfully!' },
+        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+      }
+    else
+      render json: {
+        status: { code: 401, message: resource.errors.full_messages.to_sentence }
+      }, status: :unprocessable_entity
+    end
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  #   devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password password_confirmation])
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
