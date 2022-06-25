@@ -14,8 +14,8 @@ Rails.application.routes.draw do
     defaults: { format: :json }
   )
 
-  # Route to verify logged in user
-  get '/current_user', to: 'application#current_user'
+  # Verify if user is logged in
+  get :current_user, to: 'current_user#index'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api do
