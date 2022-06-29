@@ -9,4 +9,6 @@ class User < ApplicationRecord
 
   has_many :worlds
   has_many :comments, through: :worlds
+
+  validates_uniqueness :steam_id
 end
